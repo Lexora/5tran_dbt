@@ -1,0 +1,28 @@
+jobs:
+  # ---------- FIRST connector ----------
+  - name: stripe_live
+    schedule:
+      type: integrated
+      integrations:
+        - blanching_broke     
+    steps:
+      - name: run models for stripe_live
+        command: >
+          dbt run --select tag:stripe
+          --vars '{stripe_schema: stripe_live, stripe_database: stripe_livedbt}'
+      - name: tests_live 
+        command: dbt test --select tag:stripe
+
+  # ---------- SECOND connector ----------
+  - name: stripe_eu_models    
+    schedule:
+      type: integrated
+      integrations:
+        - blob_uncouple        
+    steps:
+      - name: run models for EU
+        command: >
+          dbt run --select tag:stripe
+          --vars '{stripe_schema: stripe_live2, stripe_database: stripe_live2dbt}'
+      - name: tests_db2
+        command: dbt test --select tag:stripe
