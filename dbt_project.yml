@@ -1,0 +1,52 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'project'
+version: '1.0.0'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'project'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+jobs:
+  # ---------- FIRST connector ----------
+  - name: stripe_live
+    schedule:
+      type: integrated
+      integrations:
+        - blanching_broke     
+    steps:
+      - name: run models for stripe_live
+        command: >
+          dbt run --select tag:stripe
+          --vars '{stripe_schema: stripe_live, stripe_database: stripe_livedbt}'
+      - name: tests_live 
+        command: dbt test --select tag:stripe
+
+  # ---------- SECOND connector ----------
+  - name: stripe_eu_models    
+    schedule:
+      type: integrated
+      integrations:
+        - blob_uncouple        
+    steps:
+      - name: run models for EU
+        command: >
+          dbt run --select tag:stripe
+          --vars '{stripe_schema: stripe_live2, stripe_database: stripe_live2dbt}'
+      - name: tests_db2
+        command: dbt test --select tag:stripe
