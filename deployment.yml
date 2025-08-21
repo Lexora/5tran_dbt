@@ -13,13 +13,13 @@
       command: dbt test --select tag:stripe
 
 # ---------- SECOND connector ----------
-- name: stripe_eu_models    
+- name: stripe_live2    
   schedule:
     type: integrated
     integrations:
       - blob_uncouple        
   steps:
-    - name: run models for EU
+    - name: run models for live2
       command: >
         dbt run --select tag:stripe
         --vars '{stripe_schema: stripe_live2, stripe_database: stripe_live2dbt}'
