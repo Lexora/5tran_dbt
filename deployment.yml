@@ -7,12 +7,12 @@ jobs:
     steps:
       - name: run models for stripe_live
         command: >
-          dbt run --select tag:stripe
-          --vars '{stripe_schema: stripe_live, stripe_database: stripe_livedbt}'
+          dbt run --select package:fivetran_stripe
+          --vars '{"stripe_schema": "stripe_live", "stripe_database": "stripe_livedbt"}'
       - name: tests_live 
-        command: dbt test --select tag:stripe
-  
-  - name: stripe_live2    
+        command: >
+          dbt test --select package:fivetran_stripe
+  - name: stripe_live2
     schedule:
       type: integrated
       integrations:
@@ -20,7 +20,8 @@ jobs:
     steps:
       - name: run models for live2
         command: >
-          dbt run --select tag:stripe
-          --vars '{stripe_schema: stripe_live2, stripe_database: stripe_live2dbt}'
+          dbt run --select package:fivetran_stripe
+          --vars '{"stripe_schema": "stripe_live2", "stripe_database": "stripe_live2dbt"}'
       - name: tests_db2
-        command: dbt test --select tag:stripe
+        command: >
+          dbt test --select package:fivetran_stripe
