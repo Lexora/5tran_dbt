@@ -1,27 +1,28 @@
 jobs:
+  # ---------- 1. Stripe Live US ----------
   - name: stripe_live
     schedule:
       type: integrated
       integrations:
-        - blanching_broke     
+        - blanching_broke    # Stripe US connector ID
     steps:
       - name: run models for stripe_live
         command: >
-          dbt run --select package:fivetran_stripe
-          --vars '{"stripe_schema": "stripe_live", "stripe_database": "stripe_livedbt"}'
-      - name: tests_live 
+          dbt run --vars '{"stripe_schema": "stripe_live", "stripe_database": "stripe_livedbt"}'
+      - name: test models for stripe_live
         command: >
-          dbt test --select package:fivetran_stripe
+          dbt test --vars '{"stripe_schema": "stripe_live", "stripe_database": "stripe_livedbt"}'
+
+  # ---------- 2. Stripe Live EU ----------
   - name: stripe_live2
     schedule:
       type: integrated
       integrations:
-        - blob_uncouple        
+        - blob_uncouple       # Stripe EU connector ID
     steps:
-      - name: run models for live2
+      - name: run models for stripe_live2
         command: >
-          dbt run --select package:fivetran_stripe
-          --vars '{"stripe_schema": "stripe_live2", "stripe_database": "stripe_live2dbt"}'
-      - name: tests_db2
+          dbt run --vars '{"stripe_schema": "stripe_live2", "stripe_database": "stripe_live2dbt"}'
+      - name: test models for stripe_live2
         command: >
-          dbt test --select package:fivetran_stripe
+          dbt test --vars '{"stripe_schema": "stripe_live2", "stripe_database": "stripe_live2dbt"}'
