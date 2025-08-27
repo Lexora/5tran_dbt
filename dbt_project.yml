@@ -25,3 +25,4 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   fivetran_stripe:
     +enabled: true
+    +schema: "{{ var('stripe_schema', 'mandatory_default_schema_name_stg_stripe') }}
