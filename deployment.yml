@@ -4,7 +4,7 @@ jobs:
     schedule:
       type: integrated
       integrations:
-        - blanching_broke    # Stripe US connector ID
+        - blanching_broke    # Stripe first connector ID
     steps:
       - name: run models for stripe_live
         command: >
@@ -18,7 +18,7 @@ jobs:
     schedule:
       type: integrated
       integrations:
-        - blob_uncouple       # Stripe EU connector ID
+        - blob_uncouple       # Stripe second connector ID
     steps:
       - name: run models for stripe_live2
         command: >
