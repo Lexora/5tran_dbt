@@ -24,6 +24,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 vars:
   fivetran__remove_empty_table_warnings: true  # optional to remove warnings
+  stripe_union_schemas: ['stripe_live','stripe_live2']
 
 models:
   fivetran_stripe:
