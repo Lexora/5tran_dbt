@@ -25,9 +25,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 vars:
   stripe_database: "dbt-technical-training"
   stripe_schema: "mandatory_default_schema_name_stg_stripe"
-
+  fivetran__remove_empty_table_warnings: true  # optional to remove warnings
 
 models:
   fivetran_stripe:
     +enabled: true
-    +schema: "{{ var('stripe_schema', 'mandatory_default_schema_name_stg_stripe') }}"
+    "*":
+      +schema: "{{ var('stripe_schema', 'mandatory_default_schema_name_stg_stripe') }}"
