@@ -8,10 +8,10 @@ jobs:
     steps:
       - name: run models for stripe_live
         command: >
-          dbt run --vars '{"stripe_schema": "stripe_live", "stripe_database": "dbt-technical-training"}'
+          dbt run --vars '{"stripe_schema": "stripe_live_dbt", "stripe_database": "dbt-technical-training"}'
       - name: test models for stripe_live
         command: >
-          dbt test --vars '{"stripe_schema": "stripe_live", "stripe_database": "dbt-technical-training"}'
+          dbt test --vars '{"stripe_schema": "stripe_live_dbt", "stripe_database": "dbt-technical-training"}'
 
   # ---------- 2. Stripe Live EU ----------
   - name: stripe_live2
@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: run models for stripe_live2
         command: >
-          dbt run --vars '{"stripe_schema": "stripe_live2", "stripe_database": "dbt-technical-training"}'
+          dbt run --vars '{"stripe_schema": "stripe_live2_dbt", "stripe_database": "dbt-technical-training"}'
       - name: test models for stripe_live2
         command: >
-          dbt test --vars '{"stripe_schema": "stripe_live2", "stripe_database": "dbt-technical-training"}'
+          dbt test --vars '{"stripe_schema": "stripe_live2_dbt", "stripe_database": "dbt-technical-training"}'
