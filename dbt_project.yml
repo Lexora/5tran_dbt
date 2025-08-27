@@ -22,6 +22,11 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
+vars:
+  stripe_database: "dbt-technical-training"
+  stripe_schema: "mandatory_default_schema_name_stg_stripe"
+
+
 models:
   fivetran_stripe:
     +enabled: true
